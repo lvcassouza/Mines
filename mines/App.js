@@ -32,8 +32,7 @@ function App () {
     <SafeAreaView style={[backgroundStyle, styles.container]}>
       <Text style={styles.text}>BEM VINDO AO MINES!!</Text>
       
-      <Text style={styles.welcome}>Tamanho da Grade 
-        {params.getRowsAmount()} x {params.getColumnsAmount()}
+      <Text style={styles.welcome}>Tamanho da Grade: {params.getRowsAmount()} x {params.getColumnsAmount()}
       </Text>
       <Field />
       
