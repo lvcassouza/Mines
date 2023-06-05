@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -17,55 +17,56 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import params from './src/params';
+import MineField from './src/components/MineField';
+import { createMinedBoard } from './src/Logic';
 
-import Field from './src/components/Field';
+export default class App extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = this.createState()
+  }
+
+  createState = () => {
+    const cols = params.getColumnsAmount()
+    const rows = params.getRowsAmount()
+
+    return{
+      board: createMinedBoard(rows, cols, this.minesAmount())
+    }
+  }
+  
+  minesAmount = () => {
+    const cols = params.getColumnsAmount()
+    const rows = params.getRowsAmount()
+    
+    return Math.ceil(cols*rows * params.difficultLevel)
+  }
 
 
-function App () {
-  const isDarkMode = useColorScheme() === 'dark';
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
+  render(){
 
   return (
-    <SafeAreaView style={[backgroundStyle, styles.container]}>
-      <Text style={styles.text}>BEM VINDO AO MINES!!</Text>
-      
-      <Text style={styles.welcome}>Tamanho da Grade: {params.getRowsAmount()} x {params.getColumnsAmount()}
-      </Text>
-      
-      <Field />
-      <Field opened />
-      <Field opened nearMines={1} />
-      <Field opened nearMines={2} />
-      <Field opened nearMines={3} />
-      <Field opened nearMines={6} />
-      <Field mined />
-      <Field opened mined exploded />
-      <Field opened mined />
-      <Field flagged />
-      <Field flagged opened />
-      
+    <SafeAreaView style={[styles.container]}>
+
+      <View style={styles.board}>
+        <MineField board={this.state.board} />
+      </View>
+
     </SafeAreaView>
   );
+}
 }
 
 const styles = StyleSheet.create({
   container:{
     flex: 1,
     backgroundColor: '#fff',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems:'center',
   },
-  
-  text:{
-    color: '#000',
-    fontSize: 35,
+  board:{
+    alignItems:'center',
+    backgroundColor: '#aaa',
   },
-  welcome:{
-
-  }
 })
-
-export default App;
