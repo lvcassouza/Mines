@@ -34,6 +34,7 @@ function App () {
       
       <Text style={styles.welcome}>Tamanho da Grade: {params.getRowsAmount()} x {params.getColumnsAmount()}
       </Text>
+      
       <Field />
       <Field opened />
       <Field opened nearMines={1} />
@@ -43,7 +44,8 @@ function App () {
       <Field mined />
       <Field opened mined exploded />
       <Field opened mined />
-      
+      <Field flagged />
+      <Field flagged opened />
       
     </SafeAreaView>
   );
