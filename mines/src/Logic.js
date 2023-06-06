@@ -94,6 +94,15 @@ const openField = (board, row, column) => {
     }
 }
 
+//quantas flags foram usadas
+const flagsUsed = (board) => fields(board).filter(fields => fields.flagged).length
+
+//funcao que marca o campo como tem ou nao tem bandeira
+const invertFlag = (board, row, column) => {
+    const field = board[row][column]
+    field.flagged = !field.flagged
+}
+
 //percorre em todos os boards como se fosse apenas um array,junta todos os arrays em um array nao precisando percorrer linhas e colunas
 const fields = board => [].concat(...board)
 //verifica se houve explosao no campo
@@ -106,6 +115,8 @@ const wonGame = board => fields(board).filter(pedding).length === 0
 const showMines = board => fields(board).filter(field => field.mined).forEach(field => field.opened = true)
 
 export{
+        flagsUsed,
+        invertFlag,
         createMinedBoard,
         cloneBoard,
         openField,

@@ -9,17 +9,14 @@ import {
   View,
   Alert
 } from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import Header from './src/components/Header';
 import params from './src/params';
 import MineField from './src/components/MineField';
-import { cloneBoard,openField, createMinedBoard, hadExplosion, wonGame, showMines } from './src/Logic';
+import { cloneBoard,openField, createMinedBoard, hadExplosion, wonGame, showMines, invertFlag, flagsUsed } from './src/Logic';
+import LevelSelection from './src/screens/levelSelection';
+
+
+
 export default class App extends Component {
 
   constructor(props) {
@@ -34,7 +31,8 @@ export default class App extends Component {
     return{
       board: createMinedBoard(rows, cols, this.minesAmount()),
       won: false,
-      lost: false
+      lost: false,
+      showLevelSelection: false,
     }
   }
 
@@ -62,16 +60,41 @@ export default class App extends Component {
 
   }
 
+  onSelectField = (row, column) => {
+    
+    const board = cloneBoard(this.state.board)
+    invertFlag(board, row, column)
+    const won = wonGame(board)
+
+    if (won) {
+      Alert.alert('Winner! Winner! Chicken dinner.')
+    }
+
+    this.setState({board, won})
+  }
+
+  onLevelSelected = level =>{
+    params.difficultLevel = level
+    this.setState(this.createState)
+  }
 
   render(){
 
   return (
     <SafeAreaView style={[styles.container]}>
+      <LevelSelection isVisible={this.state.showLevelSelection}
+        onLevelSelected={this.onLevelSelected}
+        onCancel={()=> this.setState({showLevelSelection: false})} />
 
-      <View style={styles.board}>
-        <MineField board={this.state.board}
-          onOpenField={this.onOpenField}/>
-      </View>
+          <Header flagsLeft={this.minesAmount() - flagsUsed(this.state.board)}
+            onNewGame={()=> this.setState(this.createState())} 
+            onFlagPress={()=> this.setState({showLevelSelection: true})}/>
+
+            <View style={styles.board}>
+              <MineField board={this.state.board}
+                onOpenField={this.onOpenField}
+                onSelectField={this.onSelectField} />
+            </View>
 
     </SafeAreaView>
   );
@@ -81,7 +104,7 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#aaa',
     justifyContent: 'flex-end',
     alignItems:'center',
   },
