@@ -7,6 +7,7 @@ import {
   Text,
   useColorScheme,
   View,
+  Alert
 } from 'react-native';
 
 import {
@@ -18,8 +19,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import params from './src/params';
 import MineField from './src/components/MineField';
-import { createMinedBoard } from './src/Logic';
-
+import { cloneBoard,openField, createMinedBoard, hadExplosion, wonGame, showMines } from './src/Logic';
 export default class App extends Component {
 
   constructor(props) {
@@ -32,8 +32,26 @@ export default class App extends Component {
     const rows = params.getRowsAmount()
 
     return{
-      board: createMinedBoard(rows, cols, this.minesAmount())
+      board: createMinedBoard(rows, cols, this.minesAmount()),
+      won: false,
+      lost: false
     }
+  }
+
+  onOpenField = (row, column) =>{
+    const board = cloneBoard(this.state.board)
+    openField(board,row,column)
+    const lost = hadExplosion(board)
+    const won = wonGame(board)
+
+    if (lost){
+      showMines(board)
+      Alert.alert("LOOOOSER!", "Derrota!")
+    }
+    if (won) {
+      Alert.alert('Winner! Winner! Chicken dinner.')
+    }
+    this.setState({board, lost, won})
   }
   
   minesAmount = () => {
@@ -41,6 +59,7 @@ export default class App extends Component {
     const rows = params.getRowsAmount()
     
     return Math.ceil(cols*rows * params.difficultLevel)
+
   }
 
 
@@ -50,7 +69,8 @@ export default class App extends Component {
     <SafeAreaView style={[styles.container]}>
 
       <View style={styles.board}>
-        <MineField board={this.state.board} />
+        <MineField board={this.state.board}
+          onOpenField={this.onOpenField}/>
       </View>
 
     </SafeAreaView>
