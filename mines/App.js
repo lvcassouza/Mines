@@ -15,8 +15,6 @@ import MineField from './src/components/MineField';
 import { cloneBoard,openField, createMinedBoard, hadExplosion, wonGame, showMines, invertFlag, flagsUsed } from './src/Logic';
 import LevelSelection from './src/screens/levelSelection';
 
-
-
 export default class App extends Component {
 
   constructor(props) {
