@@ -1,3 +1,17 @@
 # Mines
 
-I'm currently working on a new project aimed at developing my developer skills. The goal is to build a React Native app that is somewhat similar to the classic game 'Minesweeper'. Once it's completed, I'll update it with interface screenshots.
+Welcome to Mines! This is a clone of the classic game Minesweeper developed in React Native. The goal of this project is to provide a fun and interactive version of the game for challenge enthusiasts, while also serving as a study resource to enhance my skills and development as a mobile developer. It offers an opportunity to learn and reminisce about this classic game while honing my mobile development abilities.
+
+## Features
+
+- User-friendly and intuitive interface.
+- Customizable board with different mine quantities.
+- Alerts to inform about game outcome (win or loss).
+- Ability to restart the game at any time.
+
+## How to Play
+
+- Clone the repository to your local machine.
+- Install the project dependencies by running the command npm install.
+- Run the project with npm start or expo start.
+- Use a mobile device emulator or the Expo app on your physical device to view and play the game.
