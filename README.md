@@ -12,6 +12,14 @@ Welcome to Mines! This is a clone of the classic game Minesweeper developed in R
 ## How to Play
 
 - Clone the repository to your local machine.
-- Install the project dependencies by running the command npm install.
-- Run the project with npm start or expo start.
+- Install the project dependencies by running the command `npm install`.
+- Run the project with `npm start` or `expo start`.
 - Use a mobile device emulator or the Expo app on your physical device to view and play the game.
+
+## How to contribute
+
+1. Fork the repository.
+2. Create a new branch with your feature: `git checkout -b my-feature`
+3. Commit your changes: `git commit -m feat: My new feature`
+4. Push to your branch: `git push origin my-feature`
+5. Open a Pull Request
