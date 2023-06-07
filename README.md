@@ -5,7 +5,7 @@ Welcome to Mines! This is a clone of the classic game Minesweeper developed in R
 ## Features
 
 - User-friendly and intuitive interface.
-- Customizable board with different mine quantities.
+- Customizable board with different mine quantities (Clicking on the flag opens a difficulty menu).
 - Alerts to inform about game outcome (win or loss).
 - Ability to restart the game at any time.
 
